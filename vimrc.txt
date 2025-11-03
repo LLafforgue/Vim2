@@ -1,0 +1,122 @@
+" ================================
+"      CONFIGURATION NORMINETTE
+" ================================
+
+" Syntaxe et indentation
+syntax on
+set autoindent
+set smartindent
+
+" Indentation conforme Norminette : tabulations réelles
+set noexpandtab       " Ne PAS convertir Tab en espaces
+set tabstop=4         " Largeur d’une tabulation = 4
+set shiftwidth=4      " Décalage pour indentations automatiques
+set softtabstop=0     " Tab insère un vrai \t
+
+" Limite de 80 colonnes
+set textwidth=80
+set colorcolumn=80
+set wrap
+
+" Numéros de ligne
+set number
+
+" Recherche
+set incsearch
+set hlsearch
+
+" UTF-8
+set encoding=utf-8
+
+" Souris activée
+set mouse=a
+
+" Barre de statut
+set laststatus=2
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]
+
+" Copier/coller système
+set clipboard=unnamedplus
+vnoremap <C-c> "+y
+nnoremap <C-v> "+p
+inoremap <C-v> <C-r>+
+
+" Thème
+colorscheme desert
+
+" Mise en évidence des tabulations et espaces fin de ligne
+set list
+set listchars=tab:»·,trail:·
+
+" Pas de swap
+set noswapfile
+
+" Sauvegarde automatique en quittant le mode insertion
+autocmd InsertLeave * silent update
+
+" Compilation rapide (F9)
+autocmd FileType c nnoremap <F9> :w<CR>:!clear; gcc -Wall -Wextra -Werror % -o %< && ./%< <CR>
+
+" ================================
+"     COMMANDES PERSONNALISÉES
+" ================================
+
+" --- Insérer un main conforme Norminette ---
+command! AddMain call append(0, [
+\ '#include <unistd.h>',
+\ '',
+\ 'int  main(void)',
+\ '{',
+\ ' write(1, "42!\\n", 4);',
+\ ' return (0);',
+\ '}'
+\ ])
+
+" --- Autocomplétion pour les fonctions ft_ ---
+" Scanne le fichier courant pour toutes les fonctions ft_
+set completefunc=FTDynamicComplete
+
+function! FTDynamicComplete(findstart, base)
+    if a:findstart
+        " Trouver le début du mot sous le curseur
+        let line = getline('.')
+        let start = col('.') - 1
+        while start > 0 && line[start - 1] =~ '\k'
+            let start -= 1
+        endwhile
+        return start
+    else
+        let prefix = a:base
+        let l:matches = []
+
+        " Parcourir toutes les lignes
+        for l in getbufline('%', 1, '$')
+            let pos = 0
+            while pos >= 0
+                let pos = match(l, '\v(ft_[A-Za-z0-9_]+)', pos)
+                if pos < 0
+                    break
+                endif
+                let word = matchstr(l, '\v(ft_[A-Za-z0-9_]+)', pos)
+                if word =~ '^' . prefix && index(l:matches, word) < 0
+                    call add(l:matches, word)
+                endif
+                let pos += strlen(word)
+            endwhile
+        endfor
+
+        return sort(l:matches)
+    endif
+endfunction
+
+
+" Raccourci pour déclencher l’autocomplétion manuellement
+inoremap <C-Space> <C-x><C-u>
+
+
+" --- Complétion auto des parenthèses ---
+inoremap ( ()<Left>
+
+
+" --- Complétion intelligente des guillemets ---
+inoremap <expr> " getline('.')[col('.')-1] =~ '\k' ? '"' : '""<Left>'
