@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/09 14:37:42 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/03 17:00:06 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/04 16:18:22 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/04 16:18:24 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <string.h>
 
-void	*ft_memset(void *buff, int c, size_t n)
+#include <stdlib.h>
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*loc;
+	char	*temp;
 
-	loc = buff;
-	while (n > 0)
-		loc[--n] = (unsigned char)c;
-	return (buff);
+	temp = s2;
+	while (*s1 && *s2 && n > 0)
+	{
+		if (*s1 < *s2)
+			return (-1);
+		if (*s1 > *s2)
+			return (1);
+		else
+		{
+			s1++;
+			s2++;
+			n--;
+		}
+	}
+	return (0);
 }
-// 
-// int main( void )
-// {
-//    char buffer[38] = "This is a test of the memset function";
-
-//    printf( "Before: %s\n", buffer );
-//    memset( buffer, '*', 4 );
-//    printf( "After:  %s\n", buffer );
-// }

@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 16:58:49 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/03 17:01:48 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/05 17:35:57 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/05 17:35:59 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
-void	ft_bzero(void *s, size_t n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-		((char *) s)[i++] = '\0';
+	
 }
