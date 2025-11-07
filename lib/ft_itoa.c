@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #define INT_MIN -2147483648
 
-int	ft_is_neg(int *n)
+static int	ft_is_neg(int *n)
 {
 	if (*n < 0)
 	{
@@ -25,7 +25,7 @@ int	ft_is_neg(int *n)
 	return (0);
 }
 
-char	*ft_int_min(void)
+static char	*ft_int_min(void)
 {
 	char	*toa;
 	char	*min;
@@ -42,7 +42,7 @@ char	*ft_int_min(void)
 	return (temp);
 }
 
-char	*ft_print_toa(int n, size_t len)
+static char	*ft_print_toa(int n, size_t len)
 {
 	char	*toa;
 
@@ -68,7 +68,7 @@ char	*ft_itoa(int n)
 	size_t	len;
 	int		nbis;
 	int		neg;
-	char		*toa;
+	char	*toa;
 
 	len = (n < 0 || n == 0);
 	neg = ft_is_neg(&n);
@@ -85,8 +85,8 @@ char	*ft_itoa(int n)
 		*toa = '-';
 	return (toa);
 }
-
 /*
+
 #include <stdio.h>
 int main(void)
 {

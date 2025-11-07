@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 16:18:22 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/04 16:18:24 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/03 14:45:45 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/03 15:00:45 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include <stdlib.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strdup(const char *str)
 {
-	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && --n > 0)
+	char		*dup;
+	const char	*temp;
+
+	temp = str;
+	while (*str)
+		str++;
+	dup = malloc(sizeof(char) * (str - temp + 1));
+	if (!dup)
+		return (NULL);
+	str = temp;
+	temp = dup;
+	while (*str)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
+		*dup++ = *str;
+		str++;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	*dup = '\0';
+	return ((char *)temp);
 }

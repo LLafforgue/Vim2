@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <stdlib.h>
 
-int	ft_is_a_set(char c, char const *set)
+static int	ft_is_a_set(char c, char const *set)
 {
 	while (*set)
 		if (*set++ == c)
@@ -21,36 +21,44 @@ int	ft_is_a_set(char c, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char		*trim;
-	const char	*temp;
-	size_t		len;
+	char	*trim;
+	size_t	start;
+	size_t	end;
+	size_t	len;
 
-	temp = s1;
-	len = !ft_is_a_set(*s1, set);
-	while (*s1++)
-		if (*s1 && !ft_is_a_set(*s1, set))
-			len++;
-	s1 = temp;
-	trim = malloc(sizeof(char) * (len + 1));
+	if (!s1)
+		return (NULL);
+	start = 0;
+	while (ft_is_a_set(s1[start], set) && s1[start])
+		start++;
+	end = start;
+	while (s1[end])
+		end++;
+	end--;
+	while (ft_is_a_set(s1[end], set) && end > start)
+		end--;
+	len = end - start + 1;
+	trim = malloc((len + 1) * sizeof(char));
 	if (!trim)
 		return (NULL);
-	temp = trim;
-	while (*s1)
-	{
-		if (!ft_is_a_set(*s1, set))
-			*trim++ = *s1;
-		s1++;
-	}
-	*trim = '\0';
-	return ((char *)temp);
+	end = 0;
+	while (end < len)
+		trim[end++] = s1[start++];
+	trim[end] = '\0';
+	return (trim);
 }
 /*
 #include <stdio.h>
 int main(void)
 {
-	const char	*str = "HelLlo L!L";
-	char		*trim = ft_strtrim(str , "loL");
-
+	char		*trim = ft_strtrim("llllloL!loooLol" , "loL");
 	printf("%s\n", trim);
+	free(trim);
+	trim = ft_strtrim("llllloL!loooLolil" , "loL");
+	printf("%s\n", trim);
+	free(trim);
+	trim = ft_strtrim("" , "loL");
+	printf("%s\n", trim);
+	free(trim);
 }
 */

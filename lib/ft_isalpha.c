@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 16:18:22 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/04 16:18:24 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/03 14:23:28 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/04 09:51:17 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_isalpha(int c)
 {
-	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && --n > 0)
-	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
+/*
+#include <stdio.h>
+int main(void)
+{
+	int test;
+	test = ft_isalpha('c');
+	printf("%d", test);
+	test = ft_isalpha('a');
+	printf("%d", test);
+	test = ft_isalpha('Q');
+	printf("%d", test);
+	test = ft_isalpha('+');
+	printf("%d\n", test);
+}
+*/

@@ -18,9 +18,10 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t			len;
 	char			*nstr;
 	char			*temp;
-	char			c;
 
-	len = ft_strlen((char *)s);
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
 	nstr = malloc((len + 1) * sizeof(char));
 	if (!nstr)
 		return (NULL);
@@ -28,11 +29,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	index = 0;
 	while (*s)
 	{
-		c = f(index, *s);
-		if (c >= '\0' && c < 127)
-			*nstr++ = f(index, *s);
-		else
-			*nstr++ = *s;
+		*nstr++ = f(index, *s);
 		s++;
 		index++;
 	}

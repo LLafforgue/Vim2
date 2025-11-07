@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_stiteri(char *s, void (*f)(unsigned int, char*))
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	unsigned int	index;
 
 	if (!s || !f)
-		return;
+		return ;
 	index = 0;
 	while (s[index])
 	{
@@ -23,4 +23,3 @@ void	ft_stiteri(char *s, void (*f)(unsigned int, char*))
 		index++;
 	}
 }
-

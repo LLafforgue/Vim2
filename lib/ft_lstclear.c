@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 16:18:22 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/04 16:18:24 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/06 14:45:17 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/06 14:45:18 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && --n > 0)
+	t_list	*current;
+	
+	if (!lst || !del)
+		return;
+	if (lst)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
+		while (*lst)
+		{
+			current = *lst;
+			*lst = (*lst)->next;
+			del(current->content);
+			free(current);
+		}
+		*lst = NULL;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

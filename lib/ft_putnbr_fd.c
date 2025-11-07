@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llafforg <llafforg@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 16:18:22 by llafforg          #+#    #+#             */
-/*   Updated: 2025/11/04 16:18:24 by llafforg         ###   ########.fr       */
+/*   Created: 2025/11/06 16:53:36 by llafforg          #+#    #+#             */
+/*   Updated: 2025/11/06 16:53:38 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
+#define INT_MIN -2147483648
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_putnbr_fd(int n, int fd)
 {
+	int		i;
+	char	buff[13];
+
+	if (n == INT_MIN)
+		write(fd, "-2147483648", 11);
 	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && --n > 0)
+		write(fd, "0", 1);
+	if (n < 0)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
+		n *= -1;
+		write(fd, "-", 1);
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	i = 0;
+	while (n > 0)
+	{
+		buff[i++] = n % 10 + '0';
+		n /= 10;
+	}
+	while (i > 0)
+		write(fd, &buff[--i], 1);
 }
+/*
+int main(void)
+{
+	ft_putnbr_fd(9514, 1);
+}
+*/
