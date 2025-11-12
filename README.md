@@ -1,119 +1,112 @@
-# Configuration Vim pour la Norminette (42)
+# Libft
 
-Ce `.vimrc` est optimisé pour respecter les règles de la **Norminette** de l’école 42 et inclut des outils pratiques pour le développement en C.
+**Libft** est une bibliothèque C recodée à partir de fonctions standard et supplémentaires, dans le cadre du projet de l'école 42. Elle inclut des fonctions de manipulation de chaînes de caractères, de listes chaînées, de gestion de mémoire, et bien plus.
 
 ---
 
-## 🚀 Installation
+## Table des matières
+- [Description](#description)
+- [Fonctions](#fonctions)
+  - [Fonctions de la libc](#fonctions-de-la-libc)
+  - [Fonctions supplémentaires](#fonctions-supplementaires)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Norme 42](#norme-42)
+- [Auteur](#auteur)
 
-1. **Copier le `.vimrc`** :
+---
+
+## Description
+Ce projet consiste à recoder certaines fonctions de la bibliothèque standard C (`libc`), ainsi que des fonctions utilitaires supplémentaires. L'objectif est de comprendre le fonctionnement de ces fonctions et de les optimiser.
+
+---
+
+## Fonctions
+
+### Fonctions de la libc
+| Fonction | Description |
+|----------|-------------|
+| `ft_isalpha` | Vérifie si un caractère est alphabétique. |
+| `ft_isdigit` | Vérifie si un caractère est un chiffre. |
+| `ft_isalnum` | Vérifie si un caractère est alphanumérique. |
+| `ft_isascii` | Vérifie si un caractère est ASCII. |
+| `ft_isprint` | Vérifie si un caractère est imprimable. |
+| `ft_strlen` | Calcule la longueur d'une chaîne de caractères. |
+| `ft_memset` | Remplit une zone mémoire avec un octet donné. |
+| `ft_bzero` | Met à zéro une zone mémoire. |
+| `ft_memcpy` | Copie une zone mémoire vers une autre. |
+| `ft_memmove` | Copie une zone mémoire vers une autre (version sécurisée). |
+| `ft_strlcpy` | Copie une chaîne de caractères de manière sécurisée. |
+| `ft_strlcat` | Concatène deux chaînes de caractères de manière sécurisée. |
+| `ft_toupper` | Convertit un caractère en majuscule. |
+| `ft_tolower` | Convertit un caractère en minuscule. |
+| `ft_strchr` | Recherche la première occurrence d'un caractère dans une chaîne. |
+| `ft_strrchr` | Recherche la dernière occurrence d'un caractère dans une chaîne. |
+| `ft_strncmp` | Compare deux chaînes de caractères sur `n` octets. |
+| `ft_memchr` | Recherche un octet dans une zone mémoire. |
+| `ft_memcmp` | Compare deux zones mémoire. |
+| `ft_strnstr` | Recherche une sous-chaîne dans une chaîne. |
+| `ft_atoi` | Convertit une chaîne en entier. |
+| `ft_calloc` | Alloue et initialise une zone mémoire. |
+| `ft_strdup` | Duplique une chaîne de caractères. |
+
+### Fonctions supplémentaires
+| Fonction | Description |
+|----------|-------------|
+| `ft_substr` | Extrait une sous-chaîne d'une chaîne. |
+| `ft_strjoin` | Concatène deux chaînes de caractères. |
+| `ft_strtrim` | Supprime les caractères spécifiés au début et à la fin d'une chaîne. |
+| `ft_split` | Découpe une chaîne en un tableau de sous-chaînes. |
+| `ft_itoa` | Convertit un entier en chaîne de caractères. |
+| `ft_strmapi` | Applique une fonction à chaque caractère d'une chaîne. |
+| `ft_striteri` | Applique une fonction à chaque caractère d'une chaîne avec son index. |
+| `ft_putchar_fd` | Écrit un caractère sur un descripteur de fichier. |
+| `ft_putstr_fd` | Écrit une chaîne sur un descripteur de fichier. |
+| `ft_putendl_fd` | Écrit une chaîne suivie d'un saut de ligne sur un descripteur de fichier. |
+| `ft_putnbr_fd` | Écrit un entier sur un descripteur de fichier. |
+
+---
+
+## Installation
+1. Clonez le dépôt :
    ```bash
-   cp chemin/vers/ce_fichier/.vimrc ~/.vimrc
+   git clone <URL_DU_DEPOT>
    ```
-
-2. **(Optionnel) Installer un thème de couleurs** :
-   - Le thème `desert` est utilisé par défaut.
-   - Pour en ajouter d’autres, placez-les dans `~/.vim/colors/`.
-
-3. **Recharger la configuration** :
-   - Ouvrez Vim et tapez :
-     ```vim
-     :source ~/.vimrc
-     ```
-
-4. **(Optionnel) Vérifier la Norminette** :
-   - Installer la Norminette :
-     ```bash
-     pip install norminette
-     ```
-   - Vérifier un fichier :
-     ```bash
-     norminette mon_fichier.c
-     ```
-
----
-
-## ✨ Fonctionnalités principales
-
-- ✅ **Indentation conforme Norminette**  
-  - Utilise des **tabulations réelles** (`\t`) au lieu d’espaces.
-  - Largeur des tabulations fixée à **4 colonnes**.
-
-- ✅ **Limite visuelle à 80 colonnes**  
-  - Affiche une barre verticale à la colonne 80.
-
-- ✅ **Compilation rapide**  
-  - Appuyez sur **F9** pour compiler et exécuter le fichier courant avec :
-    ```bash
-    gcc -Wall -Wextra -Werror fichier.c -o fichier && ./fichier
-    ```
-
-- ✅ **Insertion rapide d’un `main()` minimal**  
-  - Tapez `:AddMain` pour insérer en haut du fichier :
-    ```c
-    #include <unistd.h>
-
-    int	main(void)
-    {
-    	return (0);
-    }
-    ```
-
-- ✅ **Autocomplétion des fonctions `ft_`**  
-  - L’autocompléteur scanne les fonctions commençant par `ft_` dans le fichier courant.
-  - En mode insertion, tapez le début d’une fonction puis **Ctrl+Space** pour compléter.
-
-- ✅ **Copier-coller simplifié**  
-  - **Ctrl+C** : copie la sélection dans le presse-papier système.  
-  - **Ctrl+V** : colle le contenu du presse-papier (en mode normal ou insertion).
-
-- ✅ **Affichage des espaces et tabulations**  
-  - Met en évidence les tabulations (`»·`) et les espaces en fin de ligne (`·`).
-
----
-
-## ⌨️ Raccourcis utiles
-
-| Raccourci / Commande | Action |
-|----------------------|--------|
-| `F9`                 | Compile et exécute le fichier courant. |
-| `:AddMain`           | Insère un squelette de `main()` conforme à la Norminette. |
-| `Ctrl+X` ; `Ctrl+U`  | Autocomplète une fonction `ft_` (mode insertion). |
-| `Ctrl+C`             | Copie la sélection dans le presse-papier système. |
-| `Ctrl+V`             | Colle le contenu du presse-papier. |
-| `:w`                 | Sauvegarde le fichier courant. |
-| `:q`                 | Quitte Vim. |
-
----
-
-## ⚙️ Personnalisation
-
-- **Modifier le thème**  
-  Éditez la ligne suivante dans le `.vimrc` :
-  ```vim
-  colorscheme desert
-  ```
-
-- **Adapter le squelette de `main()`**  
-  Dans le `.vimrc`, trouvez la commande `:AddMain` et modifiez les includes ou le contenu selon vos besoins.
-
----
-
-## 🧪 Vérification avec la Norminette
-
-1. Installez la Norminette :
+2. Compilez la bibliothèque :
    ```bash
-   pip install norminette
+   make
    ```
-2. Vérifiez votre code :
+3. Incluez le fichier d'en-tête `libft.h` dans votre projet et liez la bibliothèque lors de la compilation :
    ```bash
-   norminette mon_fichier.c
+   gcc -Wall -Wextra -Werror main.c -L. -lft -o programme
    ```
 
 ---
 
-## ⚠️ Problèmes courants
+## Utilisation
+Incluez `libft.h` dans votre code et utilisez les fonctions comme suit :
+```c
+#include "libft.h"
 
-- **Les couleurs ne s’affichent pas** : vérifiez que votre terminal supporte les couleurs 256 bits.
-- **`F9` ne fonctionne pas** : assurez-vous que `gcc` est installé.
-- **L’autocomplétion `ft_` ne trouve rien** : elle ne liste que les fonctions présentes dans le fichier courant.
+int main(void)
+{
+    char *str = ft_strdup("Hello, 42!");
+    ft_putendl_fd(str, 1);
+    free(str);
+    return (0);
+}
+```
+
+---
+
+## Norme 42
+Ce projet respecte la **Norme 42** :
+- Pas de fuites mémoire.
+- Pas de fonctions interdites (comme `printf`, `malloc` sans `free`, etc.).
+- Code lisible et bien indenté.
+- Fichiers `.c` et `.h` correctement organisés.
+
+---
+
+## Auteur
+Ludovic Lafforgue
