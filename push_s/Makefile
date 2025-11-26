@@ -1,0 +1,55 @@
+# variables:
+
+NAME = push_swap
+SRC = main.c \
+		ft_atoi.c ft_bzero.c ft_calloc.c ft_format_char.c ft_format_double.c \
+		ft_format_hex.c ft_format_ptr.c ft_format_signed.c ft_format_string.c \
+		ft_format_unsigned.c ft_isalpha.c ft_is_ascending.c ft_isdigit.c \
+		ft_itoa.c ft_memcpy.c \
+		ft_memset.c ft_printf.c ft_putchar_fd.c ft_putstr_fd.c ft_strchr.c \
+		ft_strjoin.c ft_strlen.c ft_strncmp.c ft_sum_unsigned.c \
+		push_ops.c rotate_ops.c rev_rotate_ops.c shift_ops.c \
+		stack_mgmt.c swap_ops.c \
+		algo_utils.c simple_sort.c radix_two.c
+
+OBJ = ${SRC:%.c=%.o}
+HEADER = push_swap.h types.h \
+		algo.h ft_printf.h libft.h operations.h shift_ops.h stack_mgmt.h
+
+CC = cc
+CCFLAGS = -Wall -Wextra -Werror -g
+N = norminette
+RM = rm -f
+
+# rules:
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(CCFLAGS) $(OBJ) -o $@
+	$(N) $(SRC) $(HEADER)
+
+%.o: %.c
+	$(CC) $(CCFLAGS) -c $< -o $@
+
+clean:
+	$(RM) *.o
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+run: all
+	./$(NAME) 0 -4 -8 15 16 -23 42
+
+bench: all
+	./$(NAME) $$(cat args.txt) --bench
+
+test: all
+	./$(NAME) $$(cat args.txt) --bench | ./checker_os $$(cat args.txt)
+
+valgrind: all
+	valgrind ./$(NAME) $$(cat args.txt)
+
+.PHONY: all clean fclean re run bench test valgrind
