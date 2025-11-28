@@ -10,7 +10,7 @@ SRC = main.c \
 		ft_strjoin.c ft_strlen.c ft_strncmp.c ft_sum_unsigned.c \
 		push_ops.c rotate_ops.c rev_rotate_ops.c shift_ops.c \
 		stack_mgmt.c swap_ops.c \
-		algo_utils.c simple_sort.c radix_two.c
+		algo_utils.c simple_sort.c radix_two.c algo_simple.c
 
 OBJ = ${SRC:%.c=%.o}
 HEADER = push_swap.h types.h \

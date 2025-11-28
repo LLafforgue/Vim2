@@ -36,5 +36,6 @@ void			simple_sort(t_stacks *stacks);
 void			radix(t_stacks *stacks);
 void			ft_radix_even_atob(t_stacks *stacks, int exp);
 void			ft_radix_odd_btoa(t_stacks *stacks, int exp);
+void        	algo_simple(t_stacks *stacks, int rank);
 
 #endif

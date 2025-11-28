@@ -179,7 +179,7 @@ int	main(int argc, char **argv)
 		error(MALLOC_ERROR, NULL, &stacks);
 	fill_stack_a(argc - 1, argv + 1, &stacks);
 	compute_stats(&stacks, &parsed_args, &stats);
-	radix(&stacks);
+	algo_simple(&stacks, 0);
 	display(stacks);
 	display_bench(&stats, parsed_args.bench_mode);
 	free_stacks(&stacks);
