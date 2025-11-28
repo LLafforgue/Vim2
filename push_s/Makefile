@@ -1,24 +1,23 @@
 # variables:
 
 NAME = push_swap
-SRC = main.c \
+SRC = push_swap.c \
+		args_parser.c benchmark.c error_mgmt.c \
 		ft_atoi.c ft_bzero.c ft_calloc.c ft_format_char.c ft_format_double.c \
 		ft_format_hex.c ft_format_ptr.c ft_format_signed.c ft_format_string.c \
-		ft_format_unsigned.c ft_isalpha.c ft_is_ascending.c ft_isdigit.c \
+		ft_format_unsigned.c ft_isalpha.c ft_isdigit.c \
 		ft_itoa.c ft_memcpy.c \
 		ft_memset.c ft_printf.c ft_putchar_fd.c ft_putstr_fd.c ft_strchr.c \
-		ft_strjoin.c ft_strlen.c ft_strncmp.c ft_sum_unsigned.c \
-		push_ops.c rotate_ops.c rev_rotate_ops.c shift_ops.c \
-		stack_mgmt.c swap_ops.c \
-		algo_utils.c simple_sort.c radix_two.c algo_simple.c
+		ft_strjoin.c ft_strlen.c ft_strncmp.c \
+		push_ops.c quick_sort.c rotate_ops.c rev_rotate_ops.c shift_ops.c \
+		stack_mgmt.c strategy_mgmt.c swap_ops.c sort_utils.c \
+		sort_utils_2.c min_extract_sort.c radix_sort.c bucket_sort.c
 
 OBJ = ${SRC:%.c=%.o}
-HEADER = push_swap.h types.h \
-		algo.h ft_printf.h libft.h operations.h shift_ops.h stack_mgmt.h
 
 CC = cc
 CCFLAGS = -Wall -Wextra -Werror -g
-N = norminette
+N = norminette -R CheckForbiddenSourceHeader -R CheckDefine
 RM = rm -f
 
 # rules:
@@ -27,7 +26,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CCFLAGS) $(OBJ) -o $@
-	$(N) $(SRC) $(HEADER)
+	$(N)
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -c $< -o $@

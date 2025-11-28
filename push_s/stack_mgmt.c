@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   stack_mgmt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llafforg <llafforg@student.42.fr>          +#+  +:+       +#+        */
+/*   By: osasburg <olivier.sasburg@learner.42.te    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 16:06:25 by osasburg          #+#    #+#             */
-/*   Updated: 2025/11/25 11:11:14 by llafforg         ###   ########.fr       */
+/*   Updated: 2025/11/28 17:31:51 by osasburg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack_mgmt.h"
-#include "libft.h"
+#include "error_mgmt.h"
 #include "ft_printf.h"
+#include "libft.h"
+#include "stack_mgmt.h"
+#include "push_swap.h"
 
 bool	init_stacks(t_stacks *stacks, size_t size)
 {
@@ -24,51 +26,73 @@ bool	init_stacks(t_stacks *stacks, size_t size)
 	stacks->a->len = 0;
 	stacks->a->max_size = size;
 	stacks->a->values = malloc(size * sizeof(int));
+	stacks->a->ranks = malloc(size * sizeof(unsigned int));
 	stacks->b->len = 0;
 	stacks->b->max_size = size;
 	stacks->b->values = malloc(size * sizeof(int));
-	return (stacks->a->values && stacks->b->values);
+	stacks->b->ranks = malloc(size * sizeof(unsigned int));
+	return (stacks->a->values && stacks->a->ranks && stacks->b->values
+		&& stacks->b->ranks);
 }
 
-void	display(t_stacks stacks)
+unsigned int	find_rank(int *sorted, int value)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (true)
+	{
+		if (sorted[i] == value)
+			return (i);
+		i++;
+	}
+}
+
+int	*rank_stack(t_stack *stack)
 {
 	size_t	i;
+	int		*sorted;
 
-	ft_printf_err("A:\n");
-	i = 0;
-	while (i < stacks.a->len)
-		ft_printf_err("[%i]\n", stacks.a->values[i++]);
-	ft_printf_err("B:\n");
-	i = 0;
-	while (i < stacks.b->len)
-		ft_printf_err("[%i]\n", stacks.b->values[i++]);
+	sorted = malloc(stack->len * sizeof(int));
+	if (sorted)
+	{
+		ft_memcpy(sorted, stack->values, stack->len * sizeof(int));
+		quick_sort(sorted, stack->len);
+		i = 0;
+		while (i < stack->len)
+		{
+			stack->ranks[i] = find_rank(sorted, stack->values[i]);
+			i++;
+		}
+	}
+	return (sorted);
+}
+
+bool	has_duplicates(int *sorted_nums, size_t len)
+{
+	while (--len > 0)
+		if (sorted_nums[len - 1] == sorted_nums[len])
+			return (true);
+	return (false);
 }
 
 void	fill_stack_a(int count, char **args, t_stacks *stacks)
 {
-	int	i;
+	int		i;
+	int		*sorted_nums;
+	bool	has_dups;
 
 	i = -1;
 	while (++i < count)
 	{
 		if (args[i][0] && args[i][1] != '-')
-			stacks->a->values[stacks->a->len++] = ft_atoi(args[i]);
+			ft_atoi(args[i], stacks->a->values + stacks->a->len++);
 	}
-}
-
-void	free_stacks(t_stacks *stacks)
-{
-	if (stacks)
-	{
-		if (stacks->a)
-		{
-			free(stacks->a->values);
-			free(stacks->a);
-		}
-		if (stacks->b)
-		{
-			free(stacks->b->values);
-			free(stacks->b);
-		}
-	}
+	sorted_nums = rank_stack(stacks->a);
+	if (!sorted_nums)
+		clean_exit_with_error(MALLOC_ERROR, stacks);
+	has_dups = has_duplicates(sorted_nums, stacks->a->len);
+	free(sorted_nums);
+	if (has_dups)
+		clean_exit_with_error(DUPLICATE_NUM_ERROR, stacks);
 }

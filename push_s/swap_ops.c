@@ -6,7 +6,7 @@
 /*   By: osasburg <olivier.sasburg@learner.42.te    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:47:14 by osasburg          #+#    #+#             */
-/*   Updated: 2025/11/25 16:17:26 by osasburg         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:59:03 by osasburg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 
 static void	swap(t_stack *stack)
 {
-	int	temp;
+	int				top_value;
+	unsigned int	top_rank;
 
 	if (stack->len < 2)
 		return ;
-	temp = stack->values[0];
+	top_value = stack->values[0];
+	top_rank = stack->ranks[0];
 	stack->values[0] = stack->values[1];
-	stack->values[1] = temp;
+	stack->ranks[0] = stack->values[1];
+	stack->values[1] = top_value;
+	stack->ranks[1] = top_rank;
 }
 
 void	sa(t_stacks *stacks)

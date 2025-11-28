@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   benchmark.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osasburg <olivier.sasburg@learner.42.te    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 15:24:27 by osasburg          #+#    #+#             */
-/*   Updated: 2025/11/28 17:48:26 by osasburg         ###   ########.fr       */
+/*   Created: 2025/11/28 14:38:13 by osasburg          #+#    #+#             */
+/*   Updated: 2025/11/28 17:31:23 by osasburg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef BENCHMARK_H
+# define BENCHMARK_H
 
-# include "args_parser.h"
-# include "benchmark.h"
-# include "error_mgmt.h"
-# include "sort.h"
-# include "stack_mgmt.h"
+# define BENCH "[bench]"
+
 # include "types.h"
+
+void	display_bench(t_stats *stats);
+void	compute_stats(t_stacks *stacks, t_args *parsed_args, t_stats *stats);
+void	display(t_stacks *stacks);
 
 #endif

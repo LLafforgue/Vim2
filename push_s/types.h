@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osasburg <olivier.sasburg@learner.42.te    +#+  +:+       +#+        */
+/*   By: llafforg <llafforg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 14:43:58 by osasburg          #+#    #+#             */
-/*   Updated: 2025/11/25 17:53:59 by osasburg         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:16:02 by llafforg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ typedef struct s_stats
 	t_e_strat		actual_strategy;
 	unsigned int	op_calls[OPS_END];
 	unsigned int	total_ops;
+	size_t			nb_ints;
 }	t_stats;
 
 typedef struct s_stack
 {
-	int		*values;
-	size_t	len;
-	size_t	max_size;
+	int				*values;
+	unsigned int	*ranks;
+	size_t			len;
+	size_t			max_size;
 }	t_stack;
 
 typedef struct s_stacks
