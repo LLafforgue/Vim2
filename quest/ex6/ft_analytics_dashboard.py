@@ -18,7 +18,7 @@ def analytics(players: list) -> None:
     if type(players) is not list:
         raise TypeError(f"A list of player is needed !")
     for player in players:
-        keys = set().union(player.keys())
+        keys = set(player.keys())
         test_keys = {'name', 'activity', 'scores'} - keys
         if test_keys:
             raise KeyError(f"Missed {test_keys} in {player}")
