@@ -1,18 +1,13 @@
 class GardenError(Exception):
     """A basic error for garden problems"""
     def __init__(self, message):
-        self.message = f"Garden Error: {message}"
-        super().__init__(self.message)
+        super().__init__(message)
 
 class PlantError(GardenError):
     """For problems with plants"""
-    def __init__(self, message):
-        super().__init__(message)
 
 class WaterError(GardenError):
     """For problems with watering"""
-    def __init__(self, message):
-        super().__init__(message)
 
 def plant_water_delay(name: str, days: int):
     if days > 10:
@@ -30,19 +25,13 @@ def water_tank(tank: int):
     else:
         return f"Water tank level is sufficient: {tank} liters available."
 
-def garden_error(name: str, tank: int, days: int):
+""" def garden_error(name: str, tank: int, days: int):
     try:
-        water_status = water_tank(tank)
-        print(water_status)
-        plant_status = plant_water_delay(name, days)
-        print(plant_status)
+        print(water_tank(tank))
+        print(plant_water_delay(name, days))
         return "Garden is healthy and well maintained."
-    except PlantError as e:
-        raise GardenError(str(e))
-    except WaterError as e:
-        raise GardenError(str(e))
-    except ValueError as e:
-        raise ValueError(str(e))
+    except GardenError as e:
+        print(f"GardenError caught: {e}") """
 
 def test_plantErrors(args: list):
     for i in args:
@@ -62,11 +51,13 @@ def test_waterErrors(args: list):
         except ValueError as e:
             print(f"Caught ValueError: {e}")
 
-def test_gardenErrors(name: str, tank_args: list, days_args: list):
-    for tank, days in zip(tank_args, days_args):
+def test_gardenErrors(name: str, args: list):
+    for tank, days in args:
         try:
             print(f"\nTesting garden with tank={tank}, days={days}:")
-            print(garden_error(name, tank, days))
+            print(water_tank(tank))
+            print(plant_water_delay(name, days))
+            print("Garden is healthy and well maintained.")
         except GardenError as e:
             print(f"Caught a garden error: {e}")
         except ValueError as e:
@@ -76,10 +67,11 @@ if __name__ == "__main__":
     print("=== Custom Garden Errors Demo ===\n")
 
     print("Testing PlantError...")
-    test_plantErrors([0, 15, -2, 5])
+    test_plantErrors([0, 15, -2])
 
     print("\nTesting WaterError...")
-    test_waterErrors([20, 10, -5, 30])
+    test_waterErrors([20, 10, -5])
 
     print("\nTesting catching all garden errors...")
-    test_gardenErrors("cucumber", [5, 20, 10], [15, 5, 3])
+    test_gardenErrors("cucumber", [(5, 15), (20, 5), (10, 3)])
+
