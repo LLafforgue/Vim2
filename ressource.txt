@@ -1,0 +1,15 @@
+-Pour le Python:
+| -	Real Python (articles thematiques)
+	|--	1: Google "real python read/write file"
+	|--	2: il te trouve le bon article de real
+	|--	3: regarder les extensions de l'article que l'on peut retoruver a la fin.
+
+-Pour le C:
+| -	"zest de savoir" (pour la base c'est ideal)
+| -	Beej
+	|-- Un mec connu pour la creation de soccet en C. En C moderne.
+
+- Pour l'architecture informatique:
+
+- Pour le JS:
+| -	https://javascript.info/
